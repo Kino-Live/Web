@@ -1,4 +1,6 @@
+"use client";
 import Logo from "@/components/ui/logo";
+import RegistrationForm from "@/components/ui/auth/reg-form";
 
 export default function RegisterPage() {
     return (
@@ -13,6 +15,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="flex-1 bg-white flex flex-col justify-center items-center">
+                <RegistrationForm />
             </div>
         </main>
     );
