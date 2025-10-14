@@ -9,8 +9,8 @@ export default function RegisterPage() {
                 <Logo />
                 <div className="text-7xl">
                     Welcome. <br />
-                    Begin your cinematic adventure now with our
-                    ticketing platform.
+                    Begin your cinematic adventure now with our ticketing
+                    platform.
                 </div>
             </div>
 

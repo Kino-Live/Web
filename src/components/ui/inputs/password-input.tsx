@@ -40,7 +40,7 @@ function PasswordField({
                     id={placeholder.toLowerCase().replace(" ", "-")}
                     name={placeholder.toLowerCase().replace(" ", "-")}
                     placeholder={placeholder}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-green-500 focus:outline-none focus:ring focus:ring-green-400"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-green-200 focus:outline-none focus:ring focus:ring-green-400"
                     required
                 />
                 <button

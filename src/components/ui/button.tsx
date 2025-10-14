@@ -13,11 +13,13 @@ const buttonVariants = cva(
                 outline:
                     "border-2 border-white text-white hover:bg-green-800 active:bg-green-900",
                 cancel: "text-white bg-red-600 hover:bg-red-700",
+                ghost: "px-2 hover:underline decoration-solid",
             },
             size: {
                 sm: "w-25 text-base",
                 md: "w-xs text-lg",
                 lg: "w-113 text-lg",
+                none: "text-base",
             },
         },
         defaultVariants: {
