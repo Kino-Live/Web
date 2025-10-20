@@ -4,9 +4,16 @@
             "id": 1,
             "title": "Dune: Part Two",
             "poster": "/movies/film-dune.png",
-            "description": "The saga continues as Paul Atreides unites with the Fremen...",
+            "restriction": "0+",
+            "year": 2024,
+            "originalTitle": "Dune: Part Two",
+            "director": "Denis Villeneuve",
+            "Language": "English",
             "genre": "Sci-Fi",
-            "duration": 166
+            "duration": 166,
+            "producer": "Mary Parent, Cale Boyter, Denis Villeneuve",
+            "starring": "Timothée Chalamet, Zendaya, Rebecca Ferguson",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..."
         },
         {
             "id": 2,

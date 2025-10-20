@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Button from "@/components/ui/button";
 
 export default async function MoviePage({
     params,
@@ -10,25 +10,54 @@ export default async function MoviePage({
     const movie = await res.json();
 
     return (
-        <main className="min-h-screen p-8">
-            <div className="mx-auto max-w-3xl rounded-xl bg-white p-6 shadow-lg">
-                <div className="flex flex-col gap-6 md:flex-row">
-                    <Image
-                        src={movie.poster}
-                        alt={movie.title}
-                        width={56}
-                        height={80}
-                    />
-                    <div>
-                        <h1 className="text-3xl font-bold text-gray-800">
-                            {movie.title}
-                        </h1>
-                        <p className="mt-2 text-gray-600">
-                            {movie.description}
-                        </p>
+        <main className="container mx-auto p-8 py-[130px]">
+            <div className="flex gap-8 items-start mb-5">
+                <img
+                    src={movie.poster}
+                    alt={movie.title}
+                    className="rounded-lg max-w-xs"
+                />
+
+                <div className="flex flex-col gap-4">
+                    <h1 className="text-5xl font-bold text-white">
+                        {movie.title}
+                    </h1>
+
+                    <div className="space-y-2">
+                        {Object.entries(movie).map(([key, value]) => {
+                            if (
+                                [
+                                    "id",
+                                    "title",
+                                    "poster",
+                                    "description",
+                                ].includes(key)
+                            )
+                                return null;
+
+                            const label = key;
+
+                            return (
+                                <p key={key} className="text-md">
+                                    <span className="font-medium text-white">
+                                        {label}:{" "}
+                                    </span>
+                                    <span className="text-gray-400">
+                                        {String(value)}
+                                    </span>
+                                </p>
+                            );
+                        })}
                     </div>
+                    <p className="max-w-xl text-lg">{movie.description}</p>
                 </div>
             </div>
+            <Button variant="outline" size="md" href="/" className="mb-3">
+                Watch Trailer
+            </Button>
+            <Button variant="primary" size="md" href="/">
+                Watch Online
+            </Button>
         </main>
     );
 }
