@@ -1,0 +1,20 @@
+{
+    "movies": [
+        {
+            "id": 1,
+            "title": "Dune: Part Two",
+            "poster": "/images/dune2.jpg",
+            "description": "The saga continues as Paul Atreides unites with the Fremen...",
+            "genre": "Sci-Fi",
+            "duration": 166
+        },
+        {
+            "id": 2,
+            "title": "Avatar 3",
+            "poster": "/images/avatar3.jpg",
+            "description": "Jake Sully returns to explore new worlds of Pandora...",
+            "genre": "Adventure",
+            "duration": 180
+        }
+    ]
+}
