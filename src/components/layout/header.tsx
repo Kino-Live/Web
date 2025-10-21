@@ -1,20 +1,32 @@
 import Link from "next/link";
+import Logo from "@/components/ui/logo";
+import Button from "@/components/ui/button";
 
 export default function Header() {
     return (
-        <header className="w-full text-white p-4 flex justify-between absolute top-0 left-0">
-            <Link href="/" className="text-2xl font-bold">
-                KinoLive
-            </Link>
-            <Link href="/movies" className="text-2xl font-bold">
-                Movies
-            </Link>
-            <Link href="/login" className="text-2xl font-bold">
-                Login
-            </Link>
-            <Link href="/registration" className="text-2xl font-bold">
-                Registration
-            </Link>
+        <header className="flex items-center justify-between container mx-auto py-6">
+            <div className="flex gap-48">
+                <Logo />
+                <div className="flex gap-8 text-lg">
+                    <Button variant="ghost" size="none" href="/movies">
+                        Now Showing
+                    </Button>
+                    <Button variant="ghost" size="none" href="/">
+                        About us
+                    </Button>
+                    <Button variant="ghost" size="none" href="/">
+                        Upcomig
+                    </Button>
+                </div>
+            </div>
+            <div className="flex gap-6">
+                <Button variant="primary" size="sm" href="/login">
+                    Login
+                </Button>
+                <Button variant="outline" size="sm" href="/registration">
+                    Register
+                </Button>
+            </div>
         </header>
     );
 }

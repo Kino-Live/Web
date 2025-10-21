@@ -19,7 +19,7 @@ const buttonVariants = cva(
                 sm: "w-25 text-base",
                 md: "w-xs text-lg",
                 lg: "w-113 text-lg",
-                none: "text-base",
+                none: "text-md",
             },
         },
         defaultVariants: {

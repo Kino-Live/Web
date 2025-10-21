@@ -10,7 +10,7 @@ export default async function MoviePage({
     const movie = await res.json();
 
     return (
-        <main className="container mx-auto p-8 py-[130px]">
+        <main className="container mx-auto p-8">
             <div className="flex gap-8 items-start mb-5">
                 <img
                     src={movie.poster}

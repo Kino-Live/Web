@@ -6,7 +6,7 @@ export default async function MoviesPage() {
     const movies = await res.json();
 
     return (
-        <main className="min-h-screen px-8 container mx-auto py-[130px]">
+        <main className="min-h-screen px-8 container mx-auto">
             <h1 className="mb-8 text-center text-3xl font-bold">
                 Now Showing
             </h1>
