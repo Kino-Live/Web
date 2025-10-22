@@ -19,7 +19,7 @@ export default async function MoviePage({
                 />
 
                 <div className="flex flex-col gap-4">
-                    <h1 className="text-5xl font-bold text-white">
+                    <h1 className="text-5xl font-bold">
                         {movie.title}
                     </h1>
 
@@ -39,7 +39,7 @@ export default async function MoviePage({
 
                             return (
                                 <p key={key} className="text-md">
-                                    <span className="font-medium text-white">
+                                    <span className="font-medium">
                                         {label}:{" "}
                                     </span>
                                     <span className="text-gray-400">

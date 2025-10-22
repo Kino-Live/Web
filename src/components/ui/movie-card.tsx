@@ -10,8 +10,8 @@ export default function MovieCard({ id, title, poster }: MovieCardProps) {
     return (
         <Link
             href={`/movies/${id}`}
-            className="group block transition hover:scale-[1.02]">
-            <div className="">
+            className="group transition hover:scale-[1.02]">
+            <div>
                 <img
                     src={poster}
                     alt={title}

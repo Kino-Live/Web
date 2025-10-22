@@ -1,27 +1,61 @@
 {
-    "movies": [
-        {
-            "id": 1,
-            "title": "Dune: Part Two",
-            "poster": "/movies/film-dune.png",
-            "restriction": "0+",
-            "year": 2024,
-            "originalTitle": "Dune: Part Two",
-            "director": "Denis Villeneuve",
-            "Language": "English",
-            "genre": "Sci-Fi",
-            "duration": 166,
-            "producer": "Mary Parent, Cale Boyter, Denis Villeneuve",
-            "starring": "Timothée Chalamet, Zendaya, Rebecca Ferguson",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..."
-        },
-        {
-            "id": 2,
-            "title": "Avatar 3",
-            "poster": "/movies/avatar-film.png",
-            "description": "Jake Sully returns to explore new worlds of Pandora...",
-            "genre": "Adventure",
-            "duration": 180
-        }
-    ]
+  "movies": [
+    {
+      "id": "1",
+      "title": "Dune: Part Two",
+      "poster": "/movies/film-dune.png",
+      "Age Restrictions": "0+",
+      "Year": 2024,
+      "Original": "Dune: Part Two",
+      "Director": "Denis Villeneuve",
+      "Language": "English",
+      "Genre": "Sci-Fi",
+      "Duration": 166,
+      "Producer": "Mary Parent, Cale Boyter, Denis Villeneuve",
+      "Starring": "Timothée Chalamet, Zendaya, Rebecca Ferguson",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..."
+    },
+    {
+      "id": "2",
+      "title": "Avatar 3",
+      "poster": "/movies/avatar-film.png",
+      "description": "Jake Sully returns to explore new worlds of Pandora...",
+      "genre": "Adventure",
+      "duration": 180
+    }
+  ],
+  "users": [
+    {
+      "id": "7eaf",
+      "name": "pis",
+      "lastName": "pos",
+      "email": "pos2@gmail.com",
+      "password": "$2b$12$JbBAX.uPB69uUcHTYcVDi.50WT3LQkkRaSM0lBKNrLNVCctXicN7O"
+    },
+    {
+      "id": "858a",
+      "email": "genomoptomus@gmail.com",
+      "password": "$2b$12$DZlHP/7ArJnLoNANXlYm4.CbkoiU/lYwRtxoJLcvS614tnGJowfIW"
+    },
+    {
+      "id": "ead0",
+      "email": "genomoptmus@gmail.com",
+      "password": "$2b$12$mzlOmerH4q.Oafrgdt4qROSwLj2NYqyXxRKQbpaUwSWxaP8dHeH06"
+    },
+    {
+      "id": "4673",
+      "email": "genomotmus@gmail.com",
+      "password": "$2b$12$EQC06x51htxPI5WfyKIdR.h2DUdI/hMwSCvv8dAWMkMfAnDSwGGPy"
+    },
+    {
+      "id": "c343",
+      "email": "genomtmus@gmail.com",
+      "password": "$2b$12$TEM0RaSvIeIu.FRtemYGK.wUwGLYfVQuan3laSnKUezg7R2ozom6W"
+    },
+    {
+      "id": "1de0",
+      "email": "g@gmail.com",
+      "password": "$2b$12$RoATsHNr0rrObWzPIiIMXusYN3BsROWIcatazp0mgQ9QC9LxBK7W."
+    }
+  ]
 }
