@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 
         if (existingUsers.length > 0) {
             return NextResponse.json(
-                { message: "Пользователь с таким email уже зарегистрирован" },
+                { message: "User with this email already exist" },
                 { status: 409 }
             );
         }
@@ -30,23 +30,19 @@ export async function POST(req: NextRequest) {
             }),
         });
 
-        if (!res.ok) {
-            throw new Error("Ошибка создания пользователя");
-        }
-
-        const { password: _, ...userSafe } = await res.json();
+        const createdUser = await res.json();
 
         return NextResponse.json(
             {
-                message: "Пользователь успешно зарегистрирован",
-                user: userSafe,
+                message: "User registered successfully",
+                user: createdUser,
             },
             { status: 201 }
         );
     } catch (error) {
         console.error("Register error:", error);
         return NextResponse.json(
-            { message: "Ошибка сервера. Попробуйте позже." },
+            { message: "Server Error." },
             { status: 500 }
         );
     }

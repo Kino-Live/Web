@@ -5,8 +5,10 @@ import EmailInput from "@/components/ui/inputs/email-input";
 import PasswordInput from "@/components/ui/inputs/password-input";
 import type { FormEventHandler } from "react";
 import { getSession, signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
+    const router = useRouter();
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault();
@@ -22,6 +24,7 @@ export default function LoginForm() {
         if (res && !res.error) {
             const session = await getSession();
             console.log(session);
+            router.push("/profile");
         } else {
             console.log("Неверный email или пароль");
         }
@@ -59,7 +62,7 @@ export default function LoginForm() {
                 variant="ghost"
                 size="none"
                 className="border border-neutral-400 text-gray-700 flex items-center justify-center space-x-2"
-                onClick={() => signIn("google")}>
+                onClick={() => signIn("google", { callbackUrl: "/profile" })}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor"

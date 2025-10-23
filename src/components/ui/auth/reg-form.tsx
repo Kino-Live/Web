@@ -2,22 +2,21 @@ import { useState } from "react";
 import EmailInput from "../inputs/email-input";
 import PasswordInput from "../inputs/password-input";
 import Button from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function RegistrationForm() {
-    const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<string | null>(null);
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setLoading(true);
         setMessage(null);
 
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData.entries());
 
         if (data["password"] !== data["confirm-password"]) {
-            setMessage("❌ Пароли не совпадают");
-            setLoading(false);
+            setMessage("Passwords do not match");
             return;
         }
 
@@ -33,15 +32,14 @@ export default function RegistrationForm() {
             const result = await res.json();
 
             if (!res.ok) {
-                setMessage(result.message || "Произошла ошибка");
+                setMessage(result.message || "Error");
             } else {
-                setMessage("✅ Регистрация успешна!");
-                e.currentTarget.reset();
+                setMessage("Registration successful. Redirecting to login...");
+                router.push("/login");
             }
-        } catch {
-            setMessage("Ошибка сервера");
-        } finally {
-            setLoading(false);
+        } catch (error) {
+            console.error("Registration error:", error);
+            setMessage("Server Error");
         }
     };
     return (
@@ -53,11 +51,7 @@ export default function RegistrationForm() {
             <PasswordInput withConfirm />
             {message && (
                 <p
-                    className={`mt-4 text-center text-sm ${
-                        message.includes("✅")
-                            ? "text-green-400"
-                            : "text-red-400"
-                    }`}>
+                    className="text-center text-base text-gray-500" >
                     {message}
                 </p>
             )}
