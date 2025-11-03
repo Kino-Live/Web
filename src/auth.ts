@@ -44,7 +44,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                         email: user.email,
                     };
                 } catch (error) {
-                    console.error("Auth error:", error);
                     return null;
                 }
             },

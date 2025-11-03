@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 interface MovieCardProps {
     id: number | string;
@@ -12,10 +13,12 @@ export default function MovieCard({ id, title, poster }: MovieCardProps) {
             href={`/movies/${id}`}
             className="group transition hover:scale-[1.02]">
             <div>
-                <img
+                <Image
                     src={poster}
                     alt={title}
-                    className="w-full rounded-xl object-cover transition-transform duration-300"
+                    width={300}
+                    height={450}
+                    className="w-full rounded-xl transition-transform duration-300"
                 />
             </div>
 

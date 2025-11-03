@@ -38,7 +38,6 @@ export default function RegistrationForm() {
                 router.push("/login");
             }
         } catch (error) {
-            console.error("Registration error:", error);
             setMessage("Server Error");
         }
     };

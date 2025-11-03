@@ -13,15 +13,52 @@
       "Duration": 166,
       "Producer": "Mary Parent, Cale Boyter, Denis Villeneuve",
       "Starring": "Timothée Chalamet, Zendaya, Rebecca Ferguson",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..."
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..."
     },
     {
       "id": "2",
-      "title": "Avatar 3",
+      "title": "Avatar: The Way of Water",
       "poster": "/movies/avatar-film.png",
-      "description": "Jake Sully returns to explore new worlds of Pandora...",
-      "genre": "Adventure",
-      "duration": 180
+      "Age Restrictions": "14+",
+      "Year": 2025,
+      "Original": "Avatar: The Way of Water",
+      "Director": "James Cameron",
+      "Language": "English",
+      "Genre": "Adventure",
+      "Duration": 190,
+      "Producer": "James Cameron, Jon Landau",
+      "Starring": "Sam Worthington, Zoe Saldana, Sigourney Weaver",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..."
+    },
+    {
+      "id": "3",
+      "title": "Fast and Furious: 9",
+      "poster": "/movies/fast-and-furios.png",
+      "Age Restrictions": "14+",
+      "Year": 2021,
+      "Original": "Fast and Furious 9",
+      "Director": "Justin Lin",
+      "Language": "English",
+      "Genre": "Action",
+      "Duration": 170,
+      "Producer": "Neal H. Moritz, Vin Diesel",
+      "Starring": "Vin Diesel, Michelle Rodriguez, Tyrese Gibson",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..."
+    },
+    {
+      "id": "4",
+      "title": "Need for Speed",
+      "poster": "/movies/nfs.png",
+      "Age Restrictions": "14+",
+      "Year": 2019,
+      "Original": "Need for Speed",
+      "Director": "Scott Waugh",
+      "Language": "English",
+      "Genre": "Race",
+      "Duration": 175,
+      "Producer": "Neal H. Moritz, Vin Diesel",
+      "Starring": "Aaron Paul, Dominic Cooper, Imogen Poots",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..."
     }
   ],
   "users": [
@@ -38,79 +75,19 @@
       "password": "$2b$12$DZlHP/7ArJnLoNANXlYm4.CbkoiU/lYwRtxoJLcvS614tnGJowfIW"
     },
     {
-      "id": "0d99",
-      "email": "g@gmail.com",
-      "password": "$2b$12$9QAzzZxHOZpa5MtZrrEF2.YGisTujxwzA0D2C53OmLHyEk.Gl5w1O"
+      "id": "ddb4",
+      "email": "ilya@gmail.com",
+      "password": "$2b$12$MZs2xklhfpmHf7qvmMNFbemPF6ysRtGUBHsv.Zc/8Q7e5ak/T5Ax2"
     },
     {
-      "id": "1abc",
-      "email": "123@gmail.com",
-      "password": "$2b$12$q/Ji2L0vCWGRHptRfdljyOkBribowXf42rt8PJfIRqVCLoniP90oa"
+      "id": "00e3",
+      "email": "ivanilov@gmail.com",
+      "password": "$2b$12$CecvVMPCJETIMlToAwQ/Auk6w.Rx9hY0oF/wDAwR5BlU/l/TpE4k2"
     },
     {
-      "id": "a456",
-      "email": "1234@gmail.com",
-      "password": "$2b$12$Do7hmwLpSnyAeXz3oeN.E.jyw30kbEG7mtgRw8LCbD31HQErWPUdC"
-    },
-    {
-      "id": "156d",
-      "email": "12@gmail.com",
-      "password": "$2b$12$eO3aSUDyKnyJTJaEaDT3pex1WFFFXmPHrShoA8UZZ0ZcBAyEuBdVq"
-    },
-    {
-      "id": "ec52",
-      "email": "124@gmail.com",
-      "password": "$2b$12$umleHiJhx9/LvNYzyvP7weEAU049UdOsKovrlY2yxMYgaEbr6F1rC"
-    },
-    {
-      "id": "1f6f",
-      "email": "12345@gmail.com",
-      "password": "$2b$12$00QcudySkGkr7U9VlTA9HOQlsnobvyulYHhjaszFPSIkQynEgAM8S"
-    },
-    {
-      "id": "bd6b",
-      "email": "123456@gmail.com",
-      "password": "$2b$12$3TUlFbkKJmHLZzpx2CPrcuXZIHCdM3v3YCr8C4xBc0FalKYxqR5qm"
-    },
-    {
-      "id": "f4e7",
-      "email": "1234567@gmail.com",
-      "password": "$2b$12$6n.6vk3j5OZ5stbgUhyzve.GH3ITC/bUvqrkFgKnMHqYDIp6rxfJu"
-    },
-    {
-      "id": "fc8d",
-      "email": "qwe@gmail.com",
-      "password": "$2b$12$9fVq022CbEsJsePyc/XWiuMDpR/LVNwTL5qofoXTMhIlgBDsr6mM2"
-    },
-    {
-      "id": "292b",
-      "email": "62546@gmail.com",
-      "password": "$2b$12$Y3mkk4XCxFQAbaoDtV/VtuEPLnCI2zu07.RZokhcuj0MkKaDXgLpG"
-    },
-    {
-      "id": "570c",
-      "email": "45345@gmail.com",
-      "password": "$2b$12$Fu4kF1saPy06x9xcwG2bNe/GBb0NQcntKjfDDTGwkzRKBNm8yM9RO"
-    },
-    {
-      "id": "2c0d",
-      "email": "dgfh@gmail.com",
-      "password": "$2b$12$SrnuIIUg.gAFeuCq7uRtTet1SxN8vlTB7taTK11SzJjxujwzXHpV."
-    },
-    {
-      "id": "dc6a",
-      "email": "sdfg@gmail.com",
-      "password": "$2b$12$yUE7L0naITLAtCqgSbyzFObkwnGeU1nbbYWYj.24hhfYrbkz1vuji"
-    },
-    {
-      "id": "5d5c",
-      "email": "ssdfgfg@gmail.com",
-      "password": "$2b$12$Q8PuZUFT3GsBauJtjkBqmuDRBfK52xMPYpSRnvi.kUbBgrxy65oAC"
-    },
-    {
-      "id": "5e47",
-      "email": "12312@gmail.com",
-      "password": "$2b$12$kwLTY1qjYIds8WAQEcDHhuPD74N4XDfGj6T1TMYTl6uRbX.ujcaty"
+      "id": "5171",
+      "email": "ily1a@gmail.com",
+      "password": "$2b$12$kl8tIxaF9SGMZH1o/JB1neaId/wqZWJpMXi4CCSmK3u9UolBPgA5u"
     }
   ]
 }
