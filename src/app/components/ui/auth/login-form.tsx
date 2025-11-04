@@ -1,11 +1,11 @@
 "use client";
-import Button from "@/components/ui/button";
-import EmailInput from "@/components/ui/inputs/email-input";
-import PasswordInput from "@/components/ui/inputs/password-input";
+import Button from "@/app/components/ui/button";
+import EmailInput from "@/app/components/ui/inputs/email-input";
+import PasswordInput from "@/app/components/ui/inputs/password-input";
 import type { FormEventHandler } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import GoogleIcon from "@/components/google-icon";
+import GoogleIcon from "@/app/components/google-icon";
 export default function LoginForm() {
     const router = useRouter();
 

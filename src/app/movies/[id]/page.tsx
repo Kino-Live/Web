@@ -1,6 +1,6 @@
-import Button from "@/components/ui/button";
-import {API_BASE_URL} from "@/app/lib/config";
-
+import Button from "@/app/components/ui/button";
+import { API_BASE_URL } from "@/app/lib/config";
+import SessionPicker from "@/app/components/movie-components/time-selection";
 
 export default async function MoviePage({
     params,
@@ -23,7 +23,9 @@ export default async function MoviePage({
                         />
 
                         <div className="flex flex-col gap-4">
-                            <h1 className="text-5xl font-bold">{movie.title}</h1>
+                            <h1 className="text-5xl font-bold">
+                                {movie.title}
+                            </h1>
 
                             <div className="space-y-2">
                                 {Object.entries(movie).map(([key, value]) => {
@@ -51,18 +53,26 @@ export default async function MoviePage({
                                     );
                                 })}
                             </div>
-                            <p className="max-w-xl text-lg">{movie.description}</p>
+                            <p className="max-w-xl text-lg">
+                                {movie.description}
+                            </p>
                         </div>
+                        <SessionPicker movieId={movie.id} />
                     </div>
 
                     <div className="mt-6 flex flex-col">
-                        <Button variant="outline" size="md" href="/" className="mb-3">
+                        <Button
+                            variant="outline"
+                            size="md"
+                            href="/"
+                            className="mb-3">
                             Watch Trailer
                         </Button>
                         <Button variant="primary" size="md" href="/">
                             Watch Online
                         </Button>
                     </div>
+                    
                 </div>
             </div>
         </main>

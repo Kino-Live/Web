@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
-import ButtonLogOut from "@/components/ui/logout-btn";
-import Logo from "@/components/ui/logo";
-import Button from "@/components/ui/button";
+import ButtonLogOut from "@/app/components/ui/logout-btn";
+import Logo from "@/app/components/ui/logo";
+import Button from "@/app/components/ui/button";
 
 export default async function Header() {
     const session = await auth();

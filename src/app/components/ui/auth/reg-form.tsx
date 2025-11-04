@@ -1,7 +1,7 @@
 import { useState } from "react";
 import EmailInput from "../inputs/email-input";
 import PasswordInput from "../inputs/password-input";
-import Button from "@/components/ui/button";
+import Button from "@/app/components/ui/button";
 import { useRouter } from "next/navigation";
 
 export default function RegistrationForm() {
@@ -49,10 +49,7 @@ export default function RegistrationForm() {
             <EmailInput />
             <PasswordInput withConfirm />
             {message && (
-                <p
-                    className="text-center text-base text-gray-500" >
-                    {message}
-                </p>
+                <p className="text-center text-base text-gray-500">{message}</p>
             )}
             <Button variant="primary" size="lg" type="submit">
                 Create Account

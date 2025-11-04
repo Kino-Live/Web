@@ -1,4 +1,4 @@
-import RegistrationDecor from "@/components/layout/registration-bg";
+import RegistrationDecor from "@/app/components/layout/registration-bg";
 
 export default function RegistrationLayout({
     children,

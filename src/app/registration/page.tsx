@@ -1,6 +1,6 @@
 "use client";
-import Logo from "@/components/ui/logo";
-import RegistrationForm from "@/components/ui/auth/reg-form";
+import Logo from "@/app/components/ui/logo";
+import RegistrationForm from "@/app/components/ui/auth/reg-form";
 
 export default function RegisterPage() {
     return (

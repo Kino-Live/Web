@@ -61,6 +61,68 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..."
     }
   ],
+  "halls": [
+    {
+      "id": 1,
+      "name": "Hall 1",
+      "rows": 8,
+      "cols": 10
+    },
+    {
+      "id": 2,
+      "name": "IMAX",
+      "rows": 12,
+      "cols": 16
+    }
+  ],
+  "sessions": [
+    {
+      "id": 1,
+      "movieId": 1,
+      "hallId": 1,
+      "date": "2025-10-15",
+      "time": "18:00",
+      "format": "2D",
+      "price": 150
+    },
+    {
+      "id": 2,
+      "movieId": 1,
+      "hallId": 2,
+      "date": "2025-10-15",
+      "time": "20:00",
+      "format": "3D",
+      "price": 200
+    },
+    {
+      "id": 3,
+      "movieId": 1,
+      "hallId": 1,
+      "date": "2025-10-16",
+      "time": "19:00",
+      "format": "2D",
+      "price": 150
+    },
+    {
+      "id": 4,
+      "movieId": 1,
+      "hallId": 1,
+      "date": "2025-10-17",
+      "time": "21:00",
+      "format": "2D",
+      "price": 150
+    },
+    {
+      "id": 4,
+      "movieId": 1,
+      "hallId": 1,
+      "date": "2025-10-18",
+      "time": "21:00",
+      "format": "2D",
+      "price": 150
+    }
+  ],
+  "tickets": [],
   "users": [
     {
       "id": "7eaf",
