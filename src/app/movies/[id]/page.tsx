@@ -1,5 +1,5 @@
 import Button from "@/components/ui/button";
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+import {API_BASE_URL} from "@/app/lib/config";
 
 
 export default async function MoviePage({

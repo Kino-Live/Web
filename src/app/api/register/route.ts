@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+import {API_BASE_URL} from "@/app/lib/config";
 
 export async function POST(req: NextRequest) {
     try {

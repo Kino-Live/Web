@@ -1,5 +1,4 @@
 "use client";
-
 import Button from "@/components/ui/button";
 import EmailInput from "@/components/ui/inputs/email-input";
 import PasswordInput from "@/components/ui/inputs/password-input";
