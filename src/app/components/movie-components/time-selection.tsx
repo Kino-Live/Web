@@ -1,13 +1,17 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
 import { API_BASE_URL } from "@/app/lib/config";
+import Button from "../ui/button";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { ChevronLeftIcon } from "@heroicons/react/24/outline";
+
 
 interface Session {
     id: number;
     movieId: number;
     hallId: number;
-    date: string; // формат YYYY-MM-DD
-    time: string; // "18:00"
+    date: string;
+    time: string;
     format: "2D" | "3D";
     price: number;
 }
@@ -16,7 +20,9 @@ export default function SessionPicker({ movieId }: { movieId: number }) {
     const [sessions, setSessions] = useState<Session[]>([]);
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [selectedTime, setSelectedTime] = useState<string | null>(null);
-    const [selectedSession, setSelectedSession] = useState<Session | null>(null);
+    const [selectedSession, setSelectedSession] = useState<Session | null>(
+        null
+    );
     const dateScrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -25,6 +31,35 @@ export default function SessionPicker({ movieId }: { movieId: number }) {
             .then((data: Session[]) => setSessions(data))
             .catch(console.error);
     }, [movieId]);
+
+    // Автоматически выбираем первую дату и первое время при загрузке сеансов
+    useEffect(() => {
+        if (sessions.length > 0 && !selectedDate) {
+            const grouped = sessions.reduce<Record<string, Session[]>>(
+                (acc, s) => {
+                    (acc[s.date] = acc[s.date] || []).push(s);
+                    return acc;
+                },
+                {}
+            );
+            const sortedDates = Object.keys(grouped).sort();
+            if (sortedDates.length > 0) {
+                const firstDate = sortedDates[0];
+                const firstDateSessions = grouped[firstDate];
+                const firstTime = firstDateSessions
+                    .map((s) => s.time)
+                    .sort()[0];
+                setSelectedDate(firstDate);
+                setSelectedTime(firstTime);
+                const firstSession = firstDateSessions.find(
+                    (s) => s.time === firstTime
+                );
+                if (firstSession) {
+                    setSelectedSession(firstSession);
+                }
+            }
+        }
+    }, [sessions, selectedDate]);
 
     const groupedByDate = sessions.reduce<Record<string, Session[]>>(
         (acc, s) => {
@@ -60,8 +95,20 @@ export default function SessionPicker({ movieId }: { movieId: number }) {
 
     const handleDateSelect = (date: string) => {
         setSelectedDate(date);
-        setSelectedTime(null);
-        setSelectedSession(null);
+        // Автоматически выбираем первое время для выбранной даты
+        const dateSessions = groupedByDate[date] || [];
+        if (dateSessions.length > 0) {
+            const firstTime = dateSessions
+                .map((s) => s.time)
+                .filter((time, index, arr) => arr.indexOf(time) === index)
+                .sort()[0];
+            setSelectedTime(firstTime);
+            const firstSession = dateSessions.find((s) => s.time === firstTime);
+            setSelectedSession(firstSession || null);
+        } else {
+            setSelectedTime(null);
+            setSelectedSession(null);
+        }
     };
 
     const handleTimeSelect = (time: string) => {
@@ -80,27 +127,18 @@ export default function SessionPicker({ movieId }: { movieId: number }) {
         : [];
 
     return (
-        <div className="mt-8">
-            {/* Date Section */}
+        <div className="flex flex-col">
             <div className="mb-8">
-                <h2 className="text-xl font-bold text-white mb-4">Date</h2>
-                <div className="relative flex items-center max-w-sm">
+                <h2 className="text-4xl font-bold text-white mb-4">Date</h2>
+                <div className=" flex items-center max-w-sm">
                     <button
                         onClick={() => scrollDates("left")}
-                        className="text-white hover:text-green-400 transition-colors mr-2 z-10 bg-transparent border-none cursor-pointer">
-                        <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2">
-                            <path d="M15 18l-6-6 6-6" />
-                        </svg>
+                        className="hover:text-green-400 transition-colors mr-2 z-10 bg-transparent border-none cursor-pointer">
+                        <ChevronLeftIcon className="h-6 w-6" />
                     </button>
                     <div
                         ref={dateScrollRef}
-                        className="flex gap-3 overflow-x-auto flex-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                        className="flex gap-4 overflow-x-auto min-w-86 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ">
                         {dates.map((date) => {
                             const { day, month } = formatDate(date);
                             const isSelected = selectedDate === date;
@@ -109,19 +147,17 @@ export default function SessionPicker({ movieId }: { movieId: number }) {
                                     key={date}
                                     onClick={() => handleDateSelect(date)}
                                     className={`
-                                        flex flex-col items-center justify-center
-                                        min-w-[80px] px-4 py-3 rounded-lg
-                                        border-2 transition-all whitespace-nowrap
+                                        flex flex-col items-center justify-center px-5 py-3 rounded-lg border-2 transition-all whitespace-nowrap
                                         ${
                                             isSelected
                                                 ? "bg-green-400 border-green-400 text-white"
                                                 : "border-white text-white hover:border-green-400"
                                         }
                                     `}>
-                                    <span className="font-bold text-sm">
+                                    <span className="font-semibold text-xl">
                                         {day} {month}
                                     </span>
-                                    <span className="font-bold text-xs">
+                                    <span className="text-md">
                                         {getDayName(date)}
                                     </span>
                                 </button>
@@ -130,24 +166,15 @@ export default function SessionPicker({ movieId }: { movieId: number }) {
                     </div>
                     <button
                         onClick={() => scrollDates("right")}
-                        className="text-white hover:text-green-400 transition-colors ml-2 z-10 bg-transparent border-none cursor-pointer">
-                        <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2">
-                            <path d="M9 18l6-6-6-6" />
-                        </svg>
+                        className="hover:text-green-400 transition-colors ml-2 z-10 bg-transparent border-none cursor-pointer">
+                        <ChevronRightIcon className="h-6 w-6" />
                     </button>
                 </div>
             </div>
 
-            {/* Time Section */}
             {selectedDate && (
                 <div className="mb-8">
-                    <h2 className="text-xl font-bold text-white mb-4">Time</h2>
+                    <h2 className="text-4xl font-bold mb-4">Time</h2>
                     <div className="grid grid-cols-4 gap-3">
                         {availableTimes.map((time) => {
                             const isSelected = selectedTime === time;
@@ -156,12 +183,12 @@ export default function SessionPicker({ movieId }: { movieId: number }) {
                                     key={time}
                                     onClick={() => handleTimeSelect(time)}
                                     className={`
-                                        px-4 py-3 rounded-lg border-2
-                                        font-bold transition-all
+                                        py-3 rounded-lg border-2
+                                        font-medium transition-all text-lg
                                         ${
                                             isSelected
-                                                ? "bg-green-400 border-green-400 text-white"
-                                                : "border-white text-white hover:border-green-400"
+                                                ? "bg-green-400 border-green-400"
+                                                : "border-white hover:border-green-400"
                                         }
                                     `}>
                                     {time}
@@ -171,21 +198,9 @@ export default function SessionPicker({ movieId }: { movieId: number }) {
                     </div>
                 </div>
             )}
-
-            {/* Choose Seats Button */}
             {selectedSession && (
-                <div className="mt-6">
-                    <a
-                        href={`/movies/${movieId}/seats/${selectedSession.id}`}
-                        className="
-                            inline-flex items-center justify-center
-                            w-full px-6 py-3 rounded-lg
-                            bg-green-400 text-white font-bold
-                            hover:bg-green-500 transition-colors
-                            text-center
-                        ">
-                        Choose seats
-                    </a>
+                <div className="flex justify-start">
+                    <Button variant="primary" size="md" href={`/movies/${movieId}/seats/${selectedSession.id}`}>Choose Seats</Button>
                 </div>
             )}
         </div>

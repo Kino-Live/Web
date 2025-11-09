@@ -12,68 +12,56 @@ export default async function MoviePage({
     const movie = await res.json();
 
     return (
-        <main className="container mx-auto p-8">
-            <div className="flex gap-8 items-start mb-5">
-                <div className="flex-1">
-                    <div className="flex gap-8 items-start">
-                        <img
-                            src={movie.poster}
-                            alt={movie.title}
-                            className="rounded-lg max-w-xs"
-                        />
+        <main className="container mx-auto px-8">
+            <div className="flex justify-between">
+                <div className="flex flex-row gap-8">
+                    <img
+                        src={movie.poster}
+                        alt={movie.title}
+                        className="rounded-lg max-w-xs"
+                    />
+                    <div className="flex flex-col gap-4">
+                        <h1 className="text-5xl font-bold">{movie.title}</h1>
 
-                        <div className="flex flex-col gap-4">
-                            <h1 className="text-5xl font-bold">
-                                {movie.title}
-                            </h1>
+                        <div className="space-y-2">
+                            {Object.entries(movie).map(([key, value]) => {
+                                if (
+                                    [
+                                        "id",
+                                        "title",
+                                        "poster",
+                                        "description",
+                                    ].includes(key)
+                                )
+                                    return null;
 
-                            <div className="space-y-2">
-                                {Object.entries(movie).map(([key, value]) => {
-                                    if (
-                                        [
-                                            "id",
-                                            "title",
-                                            "poster",
-                                            "description",
-                                        ].includes(key)
-                                    )
-                                        return null;
+                                const label = key;
 
-                                    const label = key;
-
-                                    return (
-                                        <p key={key} className="text-md">
-                                            <span className="font-medium">
-                                                {label}:{" "}
-                                            </span>
-                                            <span className="text-gray-400">
-                                                {String(value)}
-                                            </span>
-                                        </p>
-                                    );
-                                })}
-                            </div>
-                            <p className="max-w-xl text-lg">
-                                {movie.description}
-                            </p>
+                                return (
+                                    <p key={key} className="text-md">
+                                        <span className="font-medium">
+                                            {label}:{" "}
+                                        </span>
+                                        <span className="text-gray-400">
+                                            {String(value)}
+                                        </span>
+                                    </p>
+                                );
+                            })}
                         </div>
-                        <SessionPicker movieId={movie.id} />
+                        <p className="max-w-xl text-lg">{movie.description}</p>
                     </div>
-
-                    <div className="mt-6 flex flex-col">
-                        <Button
-                            variant="outline"
-                            size="md"
-                            href="/"
-                            className="mb-3">
-                            Watch Trailer
-                        </Button>
-                        <Button variant="primary" size="md" href="/">
-                            Watch Online
-                        </Button>
-                    </div>
-                    
                 </div>
+                <SessionPicker movieId={movie.id}/>
+            </div>
+
+            <div className="mt-6 flex flex-col">
+                <Button variant="outline" size="md" href="/" className="mb-3">
+                    Watch Trailer
+                </Button>
+                <Button variant="primary" size="md" href="/">
+                    Watch Online
+                </Button>
             </div>
         </main>
     );
