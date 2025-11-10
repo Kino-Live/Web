@@ -27,7 +27,7 @@ interface Ticket {
     sessionId: number;
     row: number;
     col: number;
-    userId: string;
+    userId: string | null;
 }
 
 type SeatStatus = "available" | "selected" | "occupied";
@@ -38,11 +38,11 @@ interface Seat {
     status: SeatStatus;
 }
 
-export default function SeatSelection({ 
-    sessionId, 
-    session, 
-    hall 
-}: { 
+export default function SeatSelection({
+    sessionId,
+    session,
+    hall,
+}: {
     sessionId: number;
     session: Session;
     hall: Hall;
@@ -50,6 +50,7 @@ export default function SeatSelection({
     const [occupiedSeats, setOccupiedSeats] = useState<Ticket[]>([]);
     const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
     const [loading, setLoading] = useState(true);
+    const [booking, setBooking] = useState(false);
 
     useEffect(() => {
         // Загружаем занятые места для этой сессии
@@ -61,8 +62,6 @@ export default function SeatSelection({
             .catch(console.error)
             .finally(() => setLoading(false));
     }, [sessionId]);
-
-    // Таймер обратного отсче
 
     const getSeatStatus = (row: number, col: number): SeatStatus => {
         // Проверяем, занято ли место
@@ -101,16 +100,55 @@ export default function SeatSelection({
         }
     };
 
-    const handleConfirm = () => {
+    const handleConfirm = async () => {
         if (selectedSeats.length === 0) {
             alert("Пожалуйста, выберите хотя бы одно место");
             return;
         }
 
-        console.log("Выбранные места:", selectedSeats);
-        alert(
-            `Выбрано мест: ${selectedSeats.length}. Итоговая стоимость: ${totalPrice}₴`
-        );
+        setBooking(true);
+
+        try {
+            const response = await fetch("/api/tickets", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    sessionId,
+                    seats: selectedSeats.map((seat) => ({
+                        row: seat.row,
+                        col: seat.col,
+                    })),
+                    userId: null, // Бронирование без авторизации
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(
+                    data.message ||
+                        "Ошибка при бронировании мест. Попробуйте еще раз."
+                );
+                return;
+            }
+
+            // Сохраняем количество забронированных мест
+            const bookedCount = selectedSeats.length;
+            const bookedTotalPrice = totalPrice;
+
+            // Добавляем забронированные места в список занятых
+            setOccupiedSeats((prev) => [...prev, ...data.tickets]);
+
+            // Очищаем выбранные места
+            setSelectedSeats([]);
+        } catch (error) {
+            console.error("Error booking seats:", error);
+            alert("Произошла ошибка при бронировании. Попробуйте еще раз.");
+        } finally {
+            setBooking(false);
+        }
     };
 
     if (loading) {
@@ -138,119 +176,100 @@ export default function SeatSelection({
     const totalPrice = session ? selectedSeats.length * session.price : 0;
 
     return (
-        <div className="flex gap-8">
-            <div className="flex-1 mt-8">
-            <div className="flex gap-4 mb-6 text-sm">
-                <LegendItem
-                    color="bg-gray-600"
-                    borderColor="border-gray-500"
-                    label="Доступно"
-                />
-                <LegendItem
-                    color="bg-green-400"
-                    borderColor="border-green-500"
-                    label="Выбрано"
-                />
-                <LegendItem
-                    color="bg-red-600"
-                    borderColor="border-red-700"
-                    label="Занято"
-                />
-            </div>
-
-            {/* Экран */}
-            <div className="mx-auto mb-8 w-full max-w-xl text-center text-2xl uppercase font-medium">
-                
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 806 21"
-                    fill="#FFF">
-                    <path d="M3.2,20l-2,0.2l-0.3-4l2-0.2C136.2,5.3,269.6,0,403,0s266.8,5.3,400.2,16l2,0.2l-0.3,4l-2-0.2 C669.5,9.3,536.3,4,403,4S136.4,9.3,3.2,20z"></path>
-                </svg>
-                Display
-            </div>
-
-            {/* Сетка мест */}
-            <div className="flex flex-col gap-2 mb-8">
-                {/* Заголовки колонок */}
-                <div className="flex gap-1 justify-center mb-2">
-                    <div className="w-8"></div>
-                    {Array.from({ length: hall.cols }, (_, i) => (
-                        <div
-                            key={i + 1}
-                            className="w-8 text-center text-sm">
-                            {i + 1}
-                        </div>
-                    ))}
+        <div className="flex">
+            {/* LEGEND */}
+            <div className="flex-1">
+                <div className="flex justify-center gap-4 mb-6">
+                    <LegendItem
+                        color="bg-white"
+                        borderColor="border-gray-500"
+                        label="Available"
+                    />
+                    <LegendItem
+                        color="bg-green-400"
+                        borderColor="border-green-500"
+                        label="Selected"
+                    />
+                    <LegendItem
+                        color="bg-red-600"
+                        borderColor="border-red-700"
+                        label="Occupied"
+                    />
                 </div>
 
-                {/* Ряды мест */}
-                {seats.map((rowSeats, rowIndex) => (
-                    <div
-                        key={rowIndex + 1}
-                        className="flex gap-1 justify-center">
-                        {/* Номер ряда */}
-                        <div className="w-8 text-sm text-center py-1">
-                            {String.fromCharCode(64 + rowIndex + 1)}
-                        </div>
-                        {/* Места в ряду */}
-                        {rowSeats.map((seat) => (
-                            <button
-                                key={`${seat.row}-${seat.col}`}
-                                onClick={() =>
-                                    handleSeatClick(seat.row, seat.col)
-                                }
-                                disabled={seat.status === "occupied"}
-                                className={`
+                {/* DISPLAY */}
+                <div className="mx-auto mb-8 w-full max-w-xl text-center text-2xl uppercase font-medium">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 806 21"
+                        fill="#FFF">
+                        <path d="M3.2,20l-2,0.2l-0.3-4l2-0.2C136.2,5.3,269.6,0,403,0s266.8,5.3,400.2,16l2,0.2l-0.3,4l-2-0.2 C669.5,9.3,536.3,4,403,4S136.4,9.3,3.2,20z"></path>
+                    </svg>
+                    Display
+                </div>
+
+                {/* Сетка мест */}
+                <div className="flex flex-col gap-2">
+                    {/* Заголовки колонок */}
+                    <div className="flex gap-1 justify-center mb-2">
+                        <div className="w-8"></div>
+                        {Array.from({ length: hall.cols }, (_, i) => (
+                            <div
+                                key={i + 1}
+                                className="w-8 text-center text-sm">
+                                {i + 1}
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Ряды мест */}
+                    {seats.map((rowSeats, rowIndex) => (
+                        <div
+                            key={rowIndex + 1}
+                            className="flex gap-1 justify-center">
+                            {/* Номер ряда */}
+                            <div className="w-8 text-sm text-center py-1">
+                                {String.fromCharCode(64 + rowIndex + 1)}
+                            </div>
+                            {/* Места в ряду */}
+                            {rowSeats.map((seat) => (
+                                <button
+                                    key={`${seat.row}-${seat.col}`}
+                                    onClick={() =>
+                                        handleSeatClick(seat.row, seat.col)
+                                    }
+                                    disabled={seat.status === "occupied"}
+                                    className={`
                                     w-8 h-8 rounded border transition-all
                                     ${
                                         seat.status === "available"
                                             ? "bg-white border-gray-500 hover:bg-gray-500 cursor-pointer"
                                             : seat.status === "selected"
                                             ? "bg-green-400 border-green-500 cursor-pointer"
-                                            : "bg-red-600 border-red-700 cursor-not-allowed opacity-50"
+                                            : "bg-red-600 border-red-700 cursor-not-allowed"
                                     }
                                 `}
-                                title={`Ряд ${String.fromCharCode(
-                                    64 + seat.row
-                                )}, Место ${seat.col}`}
-                            />
-                        ))}
-                    </div>
-                ))}
-            </div>
-
+                                    title={`Ряд ${String.fromCharCode(
+                                        64 + seat.row
+                                    )}, Место ${seat.col}`}
+                                />
+                            ))}
+                        </div>
+                    ))}
+                </div>
             </div>
 
             {/* Sidebar */}
-            <div className="w-80">
+            <div className="">
                 <div className="bg-gray-800 rounded-lg p-6 sticky top-8">
-                    {/* Таймер */}
-                    {selectedSeats.length > 0 && (
-                        <div className="flex items-center justify-end gap-2 mb-6 text-sm text-gray-400">
-                            <svg
-                                className="w-4 h-4"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                                />
-                            </svg>
-                        </div>
-                    )}
-
                     {/* Секция Квитки */}
                     <div className="mb-6">
                         <div className="flex justify-between items-center mb-4">
                             <h3 className="text-lg font-semibold text-white">
-                                Квитки
+                                Tickets
                             </h3>
                             <span className="text-sm text-gray-400">
-                                {selectedSeats.length} квитків, {totalPrice} грн
+                                {selectedSeats.length} tickets, {totalPrice} ₴
                             </span>
                         </div>
 
@@ -271,9 +290,7 @@ export default function SeatSelection({
                                     </svg>
                                 </div>
                                 <p className="text-sm text-gray-400">
-                                    З онлайн квитком відразу в зал!
-                                    <br />
-                                    Друкувати не потрібно
+                                    With online tickets, no need to print out
                                 </p>
                             </div>
                         ) : (
@@ -288,8 +305,8 @@ export default function SeatSelection({
                                                     Ряд{" "}
                                                     {String.fromCharCode(
                                                         64 + seat.row
-                                                    )},
-                                                    Місце {seat.col}
+                                                    )}
+                                                    , Місце {seat.col}
                                                 </p>
                                                 <p className="text-sm text-gray-400 mt-1">
                                                     {session.format}
@@ -302,7 +319,7 @@ export default function SeatSelection({
                                                         seat.col
                                                     )
                                                 }
-                                                className="text-gray-400 hover:text-white transition-colors">
+                                                className="text-gray-400 hover:text-white transition-colors cursor-pointer">
                                                 <svg
                                                     className="w-5 h-5"
                                                     fill="none"
@@ -319,10 +336,10 @@ export default function SeatSelection({
                                         </div>
                                         <div className="flex justify-between items-center">
                                             <span className="text-sm text-gray-400">
-                                                Стандарт
+                                                Standart
                                             </span>
                                             <span className="text-green-400 font-semibold">
-                                                {session.price} грн
+                                                {session.price} ₴
                                             </span>
                                         </div>
                                     </div>
@@ -338,7 +355,7 @@ export default function SeatSelection({
                                 Всього до сплати:
                             </span>
                             <span className="text-2xl font-bold text-green-400">
-                                {totalPrice} грн
+                                {totalPrice} ₴
                             </span>
                         </div>
                     </div>
@@ -347,9 +364,9 @@ export default function SeatSelection({
                     <Button
                         variant="primary"
                         onClick={handleConfirm}
-                        disabled={selectedSeats.length === 0}
+                        disabled={selectedSeats.length === 0 || booking}
                         className="w-full">
-                        Продовжити
+                        {booking ? "Бронирование..." : "Продовжити"}
                     </Button>
 
                     {/* Кнопка Назад */}

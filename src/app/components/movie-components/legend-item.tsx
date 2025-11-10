@@ -13,7 +13,7 @@ export default function LegendItem({
         <div className="flex items-center gap-2">
             <div
                 className={`w-6 h-6 ${color} border ${borderColor} rounded`}></div>
-            <span className="text-gray-400">{label}</span>
+            <span className="text-md">{label}</span>
         </div>
     );
 }

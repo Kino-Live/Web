@@ -29,7 +29,7 @@ export default async function SeatsPage({
     };
     return (
         <main className="container mx-auto p-8">
-            <div className="flex mb-6 gap-6">
+            <div className="flex gap-6">
                 <img
                     src={movie.poster}
                     alt={movie.title}
@@ -72,7 +72,7 @@ export default async function SeatsPage({
                     </div>
                 </div>
             </div>
-            <div className="flex gap-8">
+            <div className="flex">
                 <div className="flex-1">
                     <SeatSelection
                         sessionId={Number(sessionId)}
