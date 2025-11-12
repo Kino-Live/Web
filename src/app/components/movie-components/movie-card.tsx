@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Movie } from "@/app/lib/types/movie";
 
 interface MovieCardProps {
     id: number | string;

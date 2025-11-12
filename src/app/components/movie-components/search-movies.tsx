@@ -2,13 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import MovieCard from "@/app/components/movie-components/movie-card";
+import { Movie } from "@/app/lib/types/movie";
 import { API_BASE_URL } from "@/app/lib/config";
-interface Movie {
-    id: number | string;
-    title: string;
-    poster: string;
-    Genre?: string;
-}
 
 function useDebounce<T>(value: T, delay = 400) {
     const [debounced, setDebounced] = useState(value);

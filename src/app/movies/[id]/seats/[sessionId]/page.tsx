@@ -1,9 +1,11 @@
 import { API_BASE_URL } from "@/app/lib/config";
-import SeatSelection from "@/app/components/movie-components/seat-selection";
-import InfoCard from "@/app/components/movie-components/info-card";
+import { Movie, Session, Hall } from "@/app/lib/types/movie";
+import SeatSelection from "@/app/components/movie-components/booking/seat-selection";
+import InfoCard from "@/app/components/movie-components/movie-ui/info-card";
 import { MapPinIcon } from "@heroicons/react/24/outline";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import { ClockIcon } from "@heroicons/react/24/outline";
+import { formatDateShort, getDayName } from "@/app/lib/utils/date";
 
 export default async function SeatsPage({
     params,
@@ -18,15 +20,11 @@ export default async function SeatsPage({
         fetch(`${API_BASE_URL}/sessions/${sessionId}`),
     ]);
 
-    const movie = await movieRes.json();
-    const session = await sessionRes.json();
+    const movie: Movie = await movieRes.json();
+    const session: Session = await sessionRes.json();
 
     const hallRes = await fetch(`${API_BASE_URL}/halls/${session.hallId}`);
-    const hall = await hallRes.json();
-    const getDayName = (dateStr: string) => {
-        const date = new Date(dateStr);
-        return date.toLocaleDateString("en-US", { weekday: "long" });
-    };
+    const hall: Hall = await hallRes.json();
     return (
         <main className="container mx-auto p-8">
             <div className="flex gap-6">
@@ -50,15 +48,8 @@ export default async function SeatsPage({
                         />
                         <InfoCard
                             icon={<CalendarDaysIcon className="h-8 w-8" />}
-                            primaryText={new Date(session.date).toLocaleDateString(
-                                "ru-RU",
-                                {
-                                    day: "2-digit",
-                                    month: "2-digit",
-                                    year: "2-digit",
-                                }
-                            )}
-                            secondaryText={getDayName(session.date)}
+                            primaryText={formatDateShort(session.date)}
+                            secondaryText={getDayName(session.date, "long")}
                         />
                         <InfoCard
                             icon={<ClockIcon className="h-8 w-8" />}

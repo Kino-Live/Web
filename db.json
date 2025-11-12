@@ -9,7 +9,7 @@
       "Original": "Dune: Part Two",
       "Director": "Denis Villeneuve",
       "Language": "English",
-      "Genre": "Sci-Fi",
+      "Genre": "Action",
       "Duration": 166,
       "Producer": "Mary Parent, Cale Boyter, Denis Villeneuve",
       "Starring": "Timothée Chalamet, Zendaya, Rebecca Ferguson",
@@ -80,7 +80,7 @@
       "id": "1",
       "movieId": 1,
       "hallId": 1,
-      "date": "2025-10-15",
+      "date": "2025-11-13",
       "time": "18:00",
       "format": "2D",
       "price": 150
@@ -89,7 +89,7 @@
       "id": "2",
       "movieId": 1,
       "hallId": 2,
-      "date": "2025-10-15",
+      "date": "2025-11-13",
       "time": "20:00",
       "format": "3D",
       "price": 200
@@ -97,44 +97,87 @@
     {
       "id": "3",
       "movieId": 1,
-      "hallId": 1,
-      "date": "2025-10-16",
+      "hallId": 2,
+      "date": "2025-11-13",
       "time": "19:00",
       "format": "2D",
-      "price": 150
+      "price": 200
     },
     {
       "id": "4",
       "movieId": 1,
       "hallId": 1,
-      "date": "2025-10-17",
+      "date": "2025-11-14",
       "time": "21:00",
       "format": "2D",
       "price": 150
     },
     {
-      "id": "4",
+      "id": "5",
       "movieId": 1,
-      "hallId": 1,
-      "date": "2025-10-18",
-      "time": "21:00",
+      "hallId": 2,
+      "date": "2025-11-14",
+      "time": "18:00",
+      "format": "2D",
+      "price": 200
+    },
+    {
+      "id": "6",
+      "movieId": 1,
+      "hallId": 2,
+      "date": "2025-11-15",
+      "time": "14:00",
+      "format": "3D",
+      "price": 200
+    },
+    {
+      "id": "7",
+      "movieId": 1,
+      "hallId": 2,
+      "date": "2025-11-15",
+      "time": "18:00",
       "format": "2D",
       "price": 150
+    },
+    {
+      "id": "8",
+      "movieId": 1,
+      "hallId": 2,
+      "date": "2025-11-16",
+      "time": "21:00",
+      "format": "3D",
+      "price": 200
+    },
+    {
+      "id": "9",
+      "movieId": 1,
+      "hallId": 2,
+      "date": "2025-11-15",
+      "time": "18:00",
+      "format": "3D",
+      "price": 200
     }
   ],
   "tickets": [
     {
-      "id": "cf14",
+      "id": "35e6",
       "sessionId": 1,
       "row": 1,
       "col": 1,
       "userId": null
     },
     {
-      "id": "d8e0",
+      "id": "60dd",
       "sessionId": 1,
-      "row": 4,
-      "col": 10,
+      "row": 2,
+      "col": 5,
+      "userId": null
+    },
+    {
+      "id": "c1df",
+      "sessionId": 1,
+      "row": 1,
+      "col": 5,
       "userId": null
     }
   ],

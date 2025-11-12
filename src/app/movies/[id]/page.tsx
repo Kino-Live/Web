@@ -1,5 +1,6 @@
 import Button from "@/app/components/ui/button";
 import { API_BASE_URL } from "@/app/lib/config";
+import { Movie } from "@/app/lib/types/movie";
 import SessionPicker from "@/app/components/movie-components/time-selection";
 
 export default async function MoviePage({
