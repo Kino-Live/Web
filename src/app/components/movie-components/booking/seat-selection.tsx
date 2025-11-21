@@ -1,14 +1,15 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Session, Hall, Seat, Ticket } from "@/app/lib/types/movie";
-import { useTickets, useBookTickets } from "@/app/lib/hooks/useTickets";
+import { useRouter } from "next/navigation";
+import { Session, Hall, Seat } from "@/app/lib/types/movie";
+import { useTickets } from "@/app/lib/hooks/useTickets";
 import {
     generateSeatGrid,
     toggleSeatSelection,
     getSeatStatus,
-    seatsToPositions,
 } from "@/app/lib/utils/seat";
+import { createPaymentParams, buildPaymentUrl } from "@/app/lib/utils/booking";
 import SeatLegend from "@/app/components/movie-components/movie-ui/seat-legend";
 import ScreenDisplay from "@/app/components/movie-components/movie-ui/screen-display";
 import SeatGrid from "@/app/components/movie-components/booking/seat-grid";
@@ -25,13 +26,14 @@ export default function SeatSelection({
     session,
     hall,
 }: SeatSelectionProps) {
+    const router = useRouter();
     const {
         tickets,
         loading: ticketsLoading,
         refetch: refetchTickets,
     } = useTickets(sessionId);
-    const { bookTickets, booking } = useBookTickets();
     const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
+    const [booking, setBooking] = useState(false);
 
     // Генерируем сетку мест с учетом занятых и выбранных мест
     const seats = useMemo(
@@ -58,20 +60,20 @@ export default function SeatSelection({
         setSelectedSeats((prev) => toggleSeatSelection(row, col, prev));
     };
 
-    const handleConfirm = async () => {
+    const handleConfirm = () => {
         if (selectedSeats.length === 0) {
             alert("Пожалуйста, выберите хотя бы одно место");
             return;
         }
 
+        setBooking(true);
         try {
-            const seatsData = seatsToPositions(selectedSeats);
-            await bookTickets(sessionId, seatsData, null);
-            await refetchTickets();
-
-            setSelectedSeats([]);
+            const paymentParams = createPaymentParams(sessionId, session, selectedSeats);
+            const paymentUrl = buildPaymentUrl(paymentParams);
+            router.push(paymentUrl);
         } catch (error) {
-            console.error("Ошибка при бронировании мест:", error);
+            console.error("Ошибка при переходе к оплате:", error);
+            setBooking(false);
         }
     };
 
