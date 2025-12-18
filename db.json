@@ -202,6 +202,27 @@
       "row": 1,
       "col": 9,
       "userId": "4b3c"
+    },
+    {
+      "id": "cb73",
+      "sessionId": 10,
+      "row": 2,
+      "col": 7,
+      "userId": "4b3c"
+    },
+    {
+      "id": "639b",
+      "sessionId": 10,
+      "row": 2,
+      "col": 9,
+      "userId": "4b3c"
+    },
+    {
+      "id": "3840",
+      "sessionId": 10,
+      "row": 2,
+      "col": 8,
+      "userId": "4b3c"
     }
   ],
   "users": [
@@ -219,24 +240,6 @@
   ],
   "reviews": [
     {
-      "id": "7a3f",
-      "movieId": "1",
-      "userId": "4b3c",
-      "authorName": null,
-      "rating": 5,
-      "text": "щзпкшщшутпфтпшк",
-      "createdAt": "2025-12-18T15:05:37.687Z"
-    },
-    {
-      "id": "0722",
-      "movieId": "1",
-      "userId": "4b3c",
-      "authorName": "Ivan ivanilll",
-      "rating": 3,
-      "text": "123",
-      "createdAt": "2025-12-18T15:08:46.595Z"
-    },
-    {
       "id": "2b10",
       "movieId": "1",
       "userId": null,
@@ -244,6 +247,49 @@
       "rating": 4,
       "text": "123",
       "createdAt": "2025-12-18T15:09:04.029Z"
+    },
+    {
+      "id": "4d09",
+      "movieId": "1",
+      "userId": null,
+      "authorName": "123",
+      "rating": 4,
+      "text": "123",
+      "createdAt": "2025-12-18T15:12:22.828Z"
+    }
+  ],
+  "promocodes": [
+    {
+      "id": "1",
+      "code": "WELCOME10",
+      "value": 10,
+      "isActive": true,
+      "startsAt": "2025-01-01T00:00:00.000Z",
+      "expiresAt": "2025-12-31T23:59:59.999Z"
+    },
+    {
+      "id": "2",
+      "code": "SUMMER20",
+      "value": 20,
+      "isActive": true,
+      "startsAt": "2025-06-01T00:00:00.000Z",
+      "expiresAt": "2025-08-31T23:59:59.999Z"
+    },
+    {
+      "id": "3",
+      "code": "EXPIRED",
+      "value": 15,
+      "isActive": false,
+      "startsAt": "2024-01-01T00:00:00.000Z",
+      "expiresAt": "2024-12-31T23:59:59.999Z"
+    },
+    {
+      "id": "4",
+      "code": "BLACKFRIDAY",
+      "value": 50,
+      "isActive": true,
+      "startsAt": "2025-01-01T00:00:00.000Z",
+      "expiresAt": "2025-12-31T23:59:59.999Z"
     }
   ]
 }

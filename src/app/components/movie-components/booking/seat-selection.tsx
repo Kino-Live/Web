@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Session, Hall, Seat } from "@/app/lib/types/movie";
 import { useTickets } from "@/app/lib/hooks/useTickets";
@@ -34,6 +34,7 @@ export default function SeatSelection({
     } = useTickets(sessionId);
     const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
     const [booking, setBooking] = useState(false);
+    const [appliedPromocode, setAppliedPromocode] = useState<{ promocode: any; discount: number; finalPrice: number } | null>(null);
 
     // Генерируем сетку мест с учетом занятых и выбранных мест
     const seats = useMemo(
@@ -45,6 +46,26 @@ export default function SeatSelection({
         () => selectedSeats.length * session.price,
         [selectedSeats.length, session.price]
     );
+
+    // Пересчитываем скидку при изменении totalPrice, если промокод применен
+    useEffect(() => {
+        if (appliedPromocode) {
+            const newDiscount = Math.round((totalPrice * appliedPromocode.promocode.value) / 100);
+            const newFinalPrice = totalPrice - newDiscount;
+            setAppliedPromocode({ ...appliedPromocode, discount: newDiscount, finalPrice: newFinalPrice });
+        }
+    }, [totalPrice]);
+
+    // Финальная цена с учетом промокода
+    const finalPrice = appliedPromocode ? appliedPromocode.finalPrice : totalPrice;
+
+    const handlePromocodeChange = useCallback((promocode: any, discount: number, finalPrice: number) => {
+        if (promocode) {
+            setAppliedPromocode({ promocode, discount, finalPrice });
+        } else {
+            setAppliedPromocode(null);
+        }
+    }, []);
 
     const handleSeatClick = (row: number, col: number) => {
         const status = getSeatStatus(row, col, tickets, selectedSeats);
@@ -68,7 +89,13 @@ export default function SeatSelection({
 
         setBooking(true);
         try {
-            const paymentParams = createPaymentParams(sessionId, session, selectedSeats);
+            const paymentParams = createPaymentParams(
+                sessionId,
+                session,
+                selectedSeats,
+                appliedPromocode ? finalPrice : totalPrice,
+                appliedPromocode?.promocode?.code || null
+            );
             const paymentUrl = buildPaymentUrl(paymentParams);
             router.push(paymentUrl);
         } catch (error) {
@@ -104,6 +131,7 @@ export default function SeatSelection({
                 onConfirm={handleConfirm}
                 onSeatRemove={handleSeatRemove}
                 booking={booking}
+                onPromocodeChange={handlePromocodeChange}
             />
         </div>
     );

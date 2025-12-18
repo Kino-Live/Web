@@ -8,11 +8,13 @@ import { seatsToPositions } from "./seat";
 export function createPaymentParams(
     sessionId: number,
     session: Session,
-    selectedSeats: Seat[]
+    selectedSeats: Seat[],
+    finalPrice?: number,
+    promocode?: string | null
 ): PaymentParams {
     const seatsData = seatsToPositions(selectedSeats);
-    const totalPrice = selectedSeats.length * session.price;
-    const description = `Tickets for ${selectedSeats.length} seat(s)`;
+    const totalPrice = finalPrice ?? selectedSeats.length * session.price;
+    const description = `Tickets for ${selectedSeats.length} seat(s)${promocode ? ` (Promocode: ${promocode})` : ""}`;
 
     return {
         sessionId: sessionId.toString(),
