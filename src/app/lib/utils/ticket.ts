@@ -55,3 +55,15 @@ export function formatTicketId(ticketId: string | number, length: number = 8): s
 export function formatReferenceNumber(ticketId: string | number, length: number = 13): string {
     return `No. A${String(ticketId).padStart(length, "0")}`;
 }
+
+/**
+ * Проверяет, прошел ли сеанс (дата и время сеанса уже прошли)
+ */
+export function isSessionPast(sessionDate: string, sessionTime: string): boolean {
+    const now = new Date();
+    const [hours, minutes] = sessionTime.split(":");
+    const sessionDateTime = new Date(sessionDate);
+    sessionDateTime.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
+    
+    return sessionDateTime < now;
+}

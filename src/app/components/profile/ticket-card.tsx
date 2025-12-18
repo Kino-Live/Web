@@ -11,22 +11,35 @@ import {
 /**
  * Компонент для отображения отдельного билета
  */
-export default function TicketCard({ ticket, index }: TicketCardProps) {
+export default function TicketCard({ ticket, index, isPast = false }: TicketCardProps) {
     const { movie, session } = ticket;
     const seatLetter = getSeatLetter(ticket.row);
     const ticketId = formatTicketId(ticket.id);
     const referenceNumber = formatReferenceNumber(ticket.id);
 
+    // Цвета для прошедших билетов (более тусклые, серые)
+    const cardClasses = isPast
+        ? "bg-gradient-to-br from-gray-600 via-gray-500 to-gray-600 opacity-75"
+        : "bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500";
+    
+    const borderClasses = isPast
+        ? "border-gray-700/50"
+        : "border-emerald-700/50";
+
+    const shadowStyle = isPast
+        ? { boxShadow: "0 10px 25px rgba(0, 0, 0, 0.2)" }
+        : { boxShadow: "0 10px 25px rgba(16, 185, 129, 0.3)" };
+
     return (
         <div
-            className="bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 rounded-lg p-6 w-full max-w-sm relative overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl"
+            className={`${cardClasses} rounded-lg p-6 w-full max-w-sm relative overflow-hidden transform transition-all duration-500 ${isPast ? "" : "hover:scale-105 hover:shadow-2xl"}`}
             style={{
-                boxShadow: "0 10px 25px rgba(16, 185, 129, 0.3)",
+                ...shadowStyle,
                 animation: `ticketSlideIn 0.6s ease-out ${index * 0.1}s both`,
             }}
         >
             {/* Верхний перфорированный край */}
-            <div className="absolute top-0 left-0 right-0 h-2 border-b-2 border-dashed border-emerald-700/50" />
+            <div className={`absolute top-0 left-0 right-0 h-2 border-b-2 border-dashed ${borderClasses}`} />
 
             {/* Логотип */}
             <div className="text-center mb-4">
@@ -78,7 +91,7 @@ export default function TicketCard({ ticket, index }: TicketCardProps) {
             </div>
 
             {/* Нижний перфорированный край */}
-            <div className="absolute bottom-0 left-0 right-0 h-2 border-t-2 border-dashed border-emerald-700/50" />
+            <div className={`absolute bottom-0 left-0 right-0 h-2 border-t-2 border-dashed ${borderClasses}`} />
         </div>
     );
 }

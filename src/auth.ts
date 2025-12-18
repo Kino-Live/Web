@@ -40,7 +40,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
                     return {
                         id: user.id.toString(),
-                        name: `${user.name} ${user.lastName}`,
+                        name: user.name && user.lastName 
+                            ? `${user.name} ${user.lastName}` 
+                            : user.email.split("@")[0],
                         email: user.email,
                     };
                 } catch (error) {

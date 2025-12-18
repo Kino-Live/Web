@@ -13,11 +13,19 @@ export default function SessionPanel({
     session,
     isExpanded,
     onToggle,
+    isPast = false,
 }: SessionPanelProps) {
+    // Цвета для прошедших сеансов
+    const panelClasses = isPast
+        ? "bg-gradient-to-r from-gray-800/50 to-gray-900/50 border-gray-600/20 hover:from-gray-700/30 hover:to-gray-800/30 hover:border-gray-500/40"
+        : "bg-gradient-to-r from-slate-800/50 to-slate-900/50 border-emerald-500/20 hover:from-emerald-900/30 hover:to-teal-900/30 hover:border-emerald-400/40";
+    
+    const iconColor = isPast ? "text-gray-400" : "text-emerald-400";
+
     return (
         <div
             onClick={onToggle}
-            className="bg-gradient-to-r from-slate-800/50 to-slate-900/50 rounded-lg p-4 border border-emerald-500/20 cursor-pointer hover:bg-gradient-to-r hover:from-emerald-900/30 hover:to-teal-900/30 hover:border-emerald-400/40 transition-all duration-300 transform hover:scale-[1.02]"
+            className={`${panelClasses} rounded-lg p-4 cursor-pointer transition-all duration-300 transform ${isPast ? "" : "hover:scale-[1.02]"}`}
             role="button"
             tabIndex={0}
             onKeyDown={(e) => {
@@ -50,9 +58,9 @@ export default function SessionPanel({
                         Total: {tickets.length} ticket{tickets.length > 1 ? "s" : ""}
                     </p>
                     {isExpanded ? (
-                        <ChevronUpIcon className="h-5 w-5 text-emerald-400 transition-transform duration-300" />
+                        <ChevronUpIcon className={`h-5 w-5 ${iconColor} transition-transform duration-300`} />
                     ) : (
-                        <ChevronDownIcon className="h-5 w-5 text-emerald-400 transition-transform duration-300" />
+                        <ChevronDownIcon className={`h-5 w-5 ${iconColor} transition-transform duration-300`} />
                     )}
                 </div>
             </div>

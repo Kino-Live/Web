@@ -42,7 +42,7 @@ export default function PaymentSuccessPage() {
     };
 
     const handleViewTickets = () => {
-        router.push("/profile");
+        router.push("/profile?tab=tickets");
     };
 
     if (loading) {

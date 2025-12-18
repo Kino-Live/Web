@@ -2,6 +2,8 @@ import Button from "@/app/components/ui/button";
 import { API_BASE_URL } from "@/app/lib/config";
 import { Movie } from "@/app/lib/types/movie";
 import SessionPicker from "@/app/components/movie-components/time-selection";
+import MovieReviews from "@/app/components/reviews/movie-reviews";
+import MovieRating from "@/app/components/reviews/movie-rating";
 
 export default async function MoviePage({
     params,
@@ -22,7 +24,10 @@ export default async function MoviePage({
                         className="rounded-lg max-w-xs"
                     />
                     <div className="flex flex-col gap-4">
-                        <h1 className="text-5xl font-bold">{movie.title}</h1>
+                        <div className="flex items-center gap-4">
+                            <h1 className="text-5xl font-bold">{movie.title}</h1>
+                            <MovieRating movieId={movie.id} />
+                        </div>
 
                         <div className="space-y-2">
                             {Object.entries(movie).map(([key, value]) => {
@@ -64,6 +69,9 @@ export default async function MoviePage({
                     Watch Online
                 </Button>
             </div>
+
+            {/* Секция отзывов */}
+            <MovieReviews movieId={movie.id} />
         </main>
     );
 }

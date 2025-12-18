@@ -11,6 +11,7 @@ export type TicketsBySession = Record<number, UserTicket[]>;
 export interface TicketCardProps {
     ticket: UserTicket;
     index: number;
+    isPast?: boolean;
 }
 
 /**
@@ -23,6 +24,7 @@ export interface SessionPanelProps {
     session: UserTicket["session"];
     isExpanded: boolean;
     onToggle: () => void;
+    isPast?: boolean;
 }
 
 /**
@@ -31,4 +33,5 @@ export interface SessionPanelProps {
 export interface TotalSummaryProps {
     ticketCount: number;
     totalAmount: number;
+    isPast?: boolean;
 }

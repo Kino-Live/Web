@@ -1,17 +1,23 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { useUserTickets } from "@/app/lib/hooks/useTickets";
 import type { TicketsBySession } from "@/app/lib/types/ticket";
+import type { UserTicket } from "@/app/lib/hooks/useTickets";
+import { isSessionPast } from "@/app/lib/utils/ticket";
 import SessionPanel from "./session-panel";
 import TicketCard from "./ticket-card";
 import TotalSummary from "./total-summary";
 
+interface TicketsListProps {
+    tickets: UserTicket[];
+    loading: boolean;
+    error: string | null;
+}
+
 /**
  * Основной компонент для отображения списка билетов пользователя
  */
-export default function TicketsList() {
-    const { tickets, loading, error } = useUserTickets();
+export default function TicketsList({ tickets, loading, error }: TicketsListProps) {
     const [expandedSessions, setExpandedSessions] = useState<Set<number>>(new Set());
 
     // Группируем билеты по сеансам
@@ -94,6 +100,7 @@ export default function TicketsList() {
                     const { movie, session } = firstTicket;
                     const isExpanded = expandedSessions.has(Number(sessionId));
                     const totalAmount = sessionTickets.length * session.price;
+                    const isPast = isSessionPast(session.date, session.time);
 
                     return (
                         <div key={sessionId} className="space-y-4">
@@ -104,6 +111,7 @@ export default function TicketsList() {
                                 session={session}
                                 isExpanded={isExpanded}
                                 onToggle={() => toggleSession(Number(sessionId))}
+                                isPast={isPast}
                             />
 
                             {isExpanded && (
@@ -114,6 +122,7 @@ export default function TicketsList() {
                                                 key={ticket.id}
                                                 ticket={ticket}
                                                 index={index}
+                                                isPast={isPast}
                                             />
                                         ))}
                                     </div>
@@ -121,6 +130,7 @@ export default function TicketsList() {
                                     <TotalSummary
                                         ticketCount={sessionTickets.length}
                                         totalAmount={totalAmount}
+                                        isPast={isPast}
                                     />
                                 </div>
                             )}
