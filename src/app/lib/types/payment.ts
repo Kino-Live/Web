@@ -48,7 +48,7 @@ export interface PaymentSuccessParams extends PaymentParams {
 export interface CreateTicketsRequest {
     sessionId: number;
     seats: Array<{ row: number; col: number }>;
-    userId: string | null;
+    userId?: string | null; // Опционально, так как получается из сессии на сервере
 }
 
 export interface CreateTicketsResponse {

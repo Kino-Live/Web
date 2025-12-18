@@ -160,138 +160,25 @@
   ],
   "tickets": [
     {
-      "id": "35e6",
-      "sessionId": 1,
-      "row": 1,
-      "col": 1,
-      "userId": null
-    },
-    {
-      "id": "60dd",
-      "sessionId": 1,
-      "row": 2,
-      "col": 5,
-      "userId": null
-    },
-    {
-      "id": "c1df",
+      "id": "ebeb",
       "sessionId": 1,
       "row": 1,
       "col": 5,
       "userId": null
     },
     {
-      "id": "0ce1",
-      "sessionId": 4,
-      "row": 4,
-      "col": 6,
-      "userId": null
-    },
-    {
-      "id": "9a06",
-      "sessionId": 4,
-      "row": 1,
-      "col": 6,
-      "userId": null
-    },
-    {
-      "id": "fe0a",
-      "sessionId": 4,
-      "row": 1,
-      "col": 5,
-      "userId": null
-    },
-    {
-      "id": "2db3",
-      "sessionId": 1,
-      "row": 2,
-      "col": 7,
-      "userId": null
-    },
-    {
-      "id": "a7dd",
-      "sessionId": 1,
-      "row": 2,
-      "col": 6,
-      "userId": null
-    },
-    {
-      "id": "9109",
-      "sessionId": 1,
-      "row": 1,
-      "col": 4,
-      "userId": null
-    },
-    {
-      "id": "2839",
+      "id": "2692",
       "sessionId": 1,
       "row": 1,
       "col": 6,
-      "userId": null
-    },
-    {
-      "id": "de27",
-      "sessionId": 7,
-      "row": 1,
-      "col": 8,
-      "userId": null
-    },
-    {
-      "id": "609b",
-      "sessionId": 7,
-      "row": 1,
-      "col": 9,
-      "userId": null
-    },
-    {
-      "id": "bb09",
-      "sessionId": 7,
-      "row": 2,
-      "col": 9,
-      "userId": null
-    },
-    {
-      "id": "e391",
-      "sessionId": 7,
-      "row": 2,
-      "col": 8,
-      "userId": null
-    },
-    {
-      "id": "accf",
-      "sessionId": 1,
-      "row": 1,
-      "col": 2,
-      "userId": null
+      "userId": "4b3c"
     }
   ],
   "users": [
     {
-      "id": "7eaf",
-      "name": "pis",
-      "lastName": "pos",
-      "email": "pos2@gmail.com",
-      "password": "$2b$12$JbBAX.uPB69uUcHTYcVDi.50WT3LQkkRaSM0lBKNrLNVCctXicN7O"
-    },
-    {
-      "id": "858a",
-      "email": "genomoptomus@gmail.com",
-      "password": "$2b$12$DZlHP/7ArJnLoNANXlYm4.CbkoiU/lYwRtxoJLcvS614tnGJowfIW"
-    },
-    {
-      "id": "ddb4",
-      "email": "ilya@gmail.com",
-      "password": "$2b$12$MZs2xklhfpmHf7qvmMNFbemPF6ysRtGUBHsv.Zc/8Q7e5ak/T5Ax2"
-    },
-    {
-      "id": "00e3",
-      "email": "ivanilov@gmail.com",
-      "password": "$2b$12$CecvVMPCJETIMlToAwQ/Auk6w.Rx9hY0oF/wDAwR5BlU/l/TpE4k2"
-    },
-    {
-      "id": "5171",
-      "email": "ily1a@gmail.com",
-      "password": "$2b$12$kl8tIxaF9SGMZH1o/JB1neaId/wqZWJpMXi4CCSmK3u9UolBPgA5u"
+      "id": "4b3c",
+      "email": "ivan@gmail.com",
+      "password": "$2b$12$rN8NQ7LxJE2wVJeTbW1tKe5WeAAgFMwIbu9qntWlrg96ofvyqvbMq"
     }
   ]
 }

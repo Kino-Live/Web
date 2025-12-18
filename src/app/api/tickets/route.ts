@@ -1,15 +1,97 @@
 import { NextRequest, NextResponse } from "next/server";
 import { API_BASE_URL } from "@/app/lib/config";
+import { auth } from "@/auth";
+import type { Ticket, Session, Movie } from "@/app/lib/types/movie";
+
+export async function GET(req: NextRequest) {
+    try {
+        // Получаем информацию о текущем пользователе из сессии
+        const session = await auth();
+        const userId = session?.user?.id || null;
+
+        // Проверяем, что пользователь авторизован
+        if (!userId) {
+            return NextResponse.json(
+                { message: "Unauthorized. Please log in to view tickets." },
+                { status: 401 }
+            );
+        }
+
+        // Получаем все билеты пользователя
+        const ticketsResponse = await fetch(`${API_BASE_URL}/tickets?userId=${userId}`);
+        if (!ticketsResponse.ok) {
+            throw new Error("Failed to fetch tickets");
+        }
+        const tickets: Ticket[] = await ticketsResponse.json();
+
+        // Получаем информацию о сеансах и фильмах для каждого билета
+        const ticketsWithDetails = await Promise.all(
+            tickets.map(async (ticket) => {
+                // Получаем информацию о сеансе
+                const sessionResponse = await fetch(
+                    `${API_BASE_URL}/sessions/${ticket.sessionId}`
+                );
+                if (!sessionResponse.ok) {
+                    return null;
+                }
+                const session: Session = await sessionResponse.json();
+
+                // Получаем информацию о фильме
+                const movieResponse = await fetch(`${API_BASE_URL}/movies/${session.movieId}`);
+                if (!movieResponse.ok) {
+                    return null;
+                }
+                const movie: Movie = await movieResponse.json();
+
+                return {
+                    ...ticket,
+                    session,
+                    movie,
+                };
+            })
+        );
+
+        // Фильтруем null значения (если не удалось получить данные о сеансе/фильме)
+        const validTickets = ticketsWithDetails.filter(
+            (ticket) => ticket !== null
+        ) as Array<Ticket & { session: Session; movie: Movie }>;
+
+        return NextResponse.json(
+            {
+                tickets: validTickets,
+            },
+            { status: 200 }
+        );
+    } catch (error) {
+        console.error("Error fetching user tickets:", error);
+        return NextResponse.json(
+            { message: "Server Error." },
+            { status: 500 }
+        );
+    }
+}
 
 export async function POST(req: NextRequest) {
     try {
-        const { sessionId, seats, userId } = await req.json();
+        // Получаем информацию о текущем пользователе из сессии
+        const session = await auth();
+        const userId = session?.user?.id || null;
+
+        const { sessionId, seats } = await req.json();
 
         // Валидация
         if (!sessionId || !seats || !Array.isArray(seats) || seats.length === 0) {
             return NextResponse.json(
                 { message: "Invalid request. sessionId and seats array are required." },
                 { status: 400 }
+            );
+        }
+
+        // Проверяем, что пользователь авторизован
+        if (!userId) {
+            return NextResponse.json(
+                { message: "Unauthorized. Please log in to create tickets." },
+                { status: 401 }
             );
         }
 
@@ -54,7 +136,7 @@ export async function POST(req: NextRequest) {
                     sessionId,
                     row: seat.row,
                     col: seat.col,
-                    userId: userId || null, // userId опциональный
+                    userId: userId, // userId из сессии
                 }),
             });
 

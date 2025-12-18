@@ -1,17 +1,14 @@
 import Header from "@/app/components/layout/header";
+import TicketsList from "@/app/components/profile/tickets-list";
+
 export default function ProfilePage() {
     return (
         <div>
             <Header />
-            <div className="flex flex-col items-center justify-center min-h-screen">
-                <h1 className="text-4xl font-bold mb-6">
-                    Welcome to Your Profile
-                </h1>
-                <p className="text-lg text-gray-600">
-                    This is a protected profile page. Only authenticated users
-                    can see this.
-                </p>
-            </div>
+            <main className="container mx-auto p-8">
+                <h1 className="text-4xl font-bold text-white mb-8">My Tickets</h1>
+                <TicketsList />
+            </main>
         </div>
     );
 }

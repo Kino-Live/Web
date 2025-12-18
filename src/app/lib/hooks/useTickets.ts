@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { Ticket } from "../types/movie";
+import { Ticket, Session, Movie } from "../types/movie";
 import { API_BASE_URL } from "../config";
 
 /**
@@ -87,5 +87,50 @@ export function useBookTickets() {
     };
 
     return { bookTickets, booking, error };
+}
+
+/**
+ * Тип билета с дополнительной информацией о сеансе и фильме
+ */
+export interface UserTicket extends Ticket {
+    session: Session;
+    movie: Movie;
+}
+
+/**
+ * Хук для загрузки билетов текущего пользователя
+ * @returns объект с билетами пользователя, состоянием загрузки и функцией для обновления
+ */
+export function useUserTickets() {
+    const [tickets, setTickets] = useState<UserTicket[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    const fetchUserTickets = useCallback(async () => {
+        try {
+            setLoading(true);
+            setError(null);
+            const res = await fetch("/api/tickets");
+            if (!res.ok) {
+                if (res.status === 401) {
+                    throw new Error("Please log in to view your tickets");
+                }
+                throw new Error("Failed to load tickets");
+            }
+            const data: { tickets: UserTicket[] } = await res.json();
+            setTickets(data.tickets || []);
+            setLoading(false);
+        } catch (e) {
+            const message = e instanceof Error ? e.message : "Unknown error";
+            setError(message);
+            setLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchUserTickets();
+    }, [fetchUserTickets]);
+
+    return { tickets, loading, error, refetch: fetchUserTickets };
 }
 

@@ -28,7 +28,6 @@ export default function PaymentSuccessPage() {
         createTickets({
             sessionId: parseInt(params.sessionId),
             seats,
-            userId: null,
         })
             .then(() => {
                 setSuccess(true);
